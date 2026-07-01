@@ -19,3 +19,7 @@ pipeline-monitor = "pipeline_execution_monitor.cli:main"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.setuptools.packages.find]
+include = ["pipeline_execution_monitor*"]
+exclude = ["data*", "tests*"]
