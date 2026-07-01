@@ -101,3 +101,52 @@ def test_cli_monitor_returns_error_for_missing_file(capsys):
 
     assert exit_code == 1
     assert "error:" in captured.err
+
+
+def test_cli_monitor_json_writes_report(tmp_path, capsys):
+    log_file = tmp_path / "execution.json"
+    output_file = tmp_path / "monitor_report.json"
+
+    log_file.write_text(
+        json.dumps(
+            {
+                "pipeline_id": "pipeline-001",
+                "status": "completed",
+                "nodes": [
+                    {
+                        "node_id": "validate",
+                        "node_name": "Validate Pipeline",
+                        "status": "completed",
+                    }
+                ],
+                "events": [
+                    {
+                        "timestamp": "2026-07-01T20:00:00Z",
+                        "event": "pipeline_started",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    exit_code = main(
+        [
+            "monitor",
+            str(log_file),
+            "--json",
+            "--output",
+            str(output_file),
+        ]
+    )
+
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "JSON monitor report written:" in captured.out
+    assert output_file.exists()
+
+    payload = json.loads(output_file.read_text(encoding="utf-8"))
+
+    assert payload["pipeline_state"]["pipeline_id"] == "pipeline-001"
+    assert payload["metrics"]["total_nodes"] == 1

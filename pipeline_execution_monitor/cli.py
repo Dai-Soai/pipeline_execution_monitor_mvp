@@ -6,6 +6,11 @@ from pipeline_execution_monitor.loader import (
     load_execution_log,
 )
 from pipeline_execution_monitor.metrics import build_metrics
+from pipeline_execution_monitor.report import (
+    build_monitor_report,
+    monitor_report_to_dict,
+    write_monitor_report_json,
+)
 from pipeline_execution_monitor.state_builder import (
     build_node_states,
     build_pipeline_state,
@@ -37,6 +42,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Show node states and timeline events.",
     )
+    monitor_parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Write monitor report as JSON.",
+    )
+    monitor_parser.add_argument(
+        "--output",
+        default="monitor_report.json",
+        help="Output path for JSON monitor report.",
+    )
 
     return parser
 
@@ -44,6 +59,13 @@ def build_parser() -> argparse.ArgumentParser:
 def run_monitor(args: argparse.Namespace) -> int:
     try:
         execution_log = load_execution_log(args.execution_log)
+
+        if args.json:
+            report = build_monitor_report(execution_log)
+            output_path = write_monitor_report_json(report, args.output)
+            print(f"JSON monitor report written: {output_path}")
+            return 0
+
         pipeline_state = build_pipeline_state(execution_log)
         nodes = build_node_states(execution_log)
         timeline = build_timeline(execution_log)
