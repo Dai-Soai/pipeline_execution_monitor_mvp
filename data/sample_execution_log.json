@@ -1,0 +1,55 @@
+{
+  "pipeline_id": "pipeline-demo-001",
+  "status": "running",
+  "started_at": "2026-07-01T20:00:00Z",
+  "finished_at": null,
+  "duration_seconds": null,
+  "nodes": [
+    {
+      "node_id": "validate",
+      "node_name": "Validate Pipeline",
+      "status": "completed",
+      "started_at": "2026-07-01T20:00:01Z",
+      "finished_at": "2026-07-01T20:00:03Z",
+      "duration_seconds": 2.0
+    },
+    {
+      "node_id": "plan",
+      "node_name": "Build Execution Plan",
+      "status": "completed",
+      "started_at": "2026-07-01T20:00:04Z",
+      "finished_at": "2026-07-01T20:00:05Z",
+      "duration_seconds": 1.0
+    },
+    {
+      "node_id": "execute",
+      "node_name": "Execute Pipeline",
+      "status": "running",
+      "started_at": "2026-07-01T20:00:06Z",
+      "finished_at": null,
+      "duration_seconds": null
+    }
+  ],
+  "events": [
+    {
+      "timestamp": "2026-07-01T20:00:00Z",
+      "event": "pipeline_started",
+      "message": "Pipeline execution started"
+    },
+    {
+      "timestamp": "2026-07-01T20:00:01Z",
+      "event": "node_started",
+      "node_id": "validate",
+      "message": "Validation started"
+    },
+    {
+      "timestamp": "2026-07-01T20:00:03Z",
+      "event": "node_finished",
+      "node_id": "validate",
+      "message": "Validation completed"
+    }
+  ],
+  "metadata": {
+    "source": "sample"
+  }
+}
