@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipeline-execution-monitor"
+version = "0.1.0"
+description = "Pipeline Execution Monitor MVP for observing pipeline execution status, timelines, node states, and runtime metrics in the RADAR Services utility chain."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "RADAR Services" }
+]
+dependencies = []
+
+[project.scripts]
+pipeline-monitor = "pipeline_execution_monitor.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
