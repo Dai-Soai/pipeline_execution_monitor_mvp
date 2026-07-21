@@ -8,7 +8,6 @@ from pipeline_execution_monitor.loader import (
 from pipeline_execution_monitor.metrics import build_metrics
 from pipeline_execution_monitor.report import (
     build_monitor_report,
-    monitor_report_to_dict,
     write_monitor_report_json,
 )
 from pipeline_execution_monitor.state_builder import (

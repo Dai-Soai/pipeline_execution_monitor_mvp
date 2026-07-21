@@ -104,7 +104,9 @@ def infer_pipeline_status(raw_nodes: list[dict[str, Any]]) -> str:
     return "unknown"
 
 
-def build_execution_state(execution_log: dict[str, Any]) -> tuple[
+def build_execution_state(
+    execution_log: dict[str, Any],
+) -> tuple[
     PipelineExecutionState,
     list[NodeExecutionState],
 ]:
